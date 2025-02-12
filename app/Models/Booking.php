@@ -13,7 +13,7 @@ class Booking extends Model
     ];
 
     public function getAll() {
-        $bookings = Booking::all();
+        $bookings = Booking::orderBy('id','desc')->get();
         return $bookings;
     }
 }
