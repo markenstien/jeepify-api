@@ -18,7 +18,7 @@ class UserController extends Controller
         $this->user->name = $request->get('name');
         $this->user->mobile_number = $request->get('mobile_number');
         $this->user->email = $request->get('email');
-        $this->user->password = '12345';
+        $this->user->password = $request->get('password') ?? '12345';
 
         $userId = $this->user->save();
 

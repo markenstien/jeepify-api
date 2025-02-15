@@ -47,7 +47,7 @@ class BookingController extends Controller
 
         if(!empty($request->get('booking_id')) && $request->hasFile('image')) {
            // Store the image in the 'public' disk
-           $imagePath = $request->file('image')->store('images');
+           $imagePath = $request->file('image')->store('images', 'public');
            // Get the URL of the uploaded image
            $imageUrl = asset('storage/' . $imagePath);
 
