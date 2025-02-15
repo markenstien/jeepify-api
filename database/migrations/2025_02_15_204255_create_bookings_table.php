@@ -25,6 +25,8 @@ return new class extends Migration
             $table->double('net_cost')->nullable();
             $table->integer('customer_id')->nullable();
             $table->integer('driver_id')->nullable();
+            $table->string('notes', length:150)->nullable();
+            $table->string('parcel_description', length:150)->nullable();
             $table->enum('booking_status', ['pending', 'in-progress', 'cancelled','delivered', 'delivered-cancelled','in-progress-cancelled'])->default('pending');
             $table->string('booking_reference_number', length:12)->unique();
             $table->string('distance', length:5)->comment('In Killometers',);

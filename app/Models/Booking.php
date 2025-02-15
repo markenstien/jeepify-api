@@ -12,8 +12,22 @@ class Booking extends Model
         'id'
     ];
 
-    public function getAll() {
-        $bookings = Booking::orderBy('id','desc')->get();
+    public function getAll($where = []) {
+        
+        $query = Booking::with('bookingPickUpDropOff');
+        if(!empty($where)) {
+            $query->where($where);
+        }
+        $bookings = $query->orderBy('id','desc')->get();
         return $bookings;
+    }
+
+    public function get($id) {
+        $query = Booking::with('bookingPickUpDropOff');
+        return $query->find($id);
+    }
+
+    public function bookingPickUpDropOff() {
+        return $this->hasMany(BookingPickupDropOffModel::class, 'booking_id', 'id');
     }
 }

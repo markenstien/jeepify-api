@@ -10,10 +10,15 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::prefix('operation')->group(function(){
-    Route::get('/booking', [BookingController::class, 'index']);
+    Route::get('/booking/pickup-dropoff', [BookingController::class, 'getPickupDropOff']);
+    Route::post('/booking/pickup-dropoff', [BookingController::class, 'pickupDropOff']);
+    
     Route::get('/booking/{id}', [BookingController::class, 'get']);
-    Route::post('/booking', [BookingController::class, 'store']);
     Route::post('/booking/accept', [BookingController::class, 'accept']);
+    Route::post('/booking/pickup', [BookingController::class, 'pickup']);
+
+    Route::get('/booking', [BookingController::class, 'index']);
+    Route::post('/booking', [BookingController::class, 'store']);
 });
 
 
