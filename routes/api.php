@@ -2,23 +2,34 @@
 
 use App\Http\Controllers\API\BookingController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\VehicleController;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Types\Relations\Role;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 Route::prefix('operation')->group(function(){
-    Route::get('/booking/pickup-dropoff', [BookingController::class, 'getPickupDropOff']);
-    Route::post('/booking/pickup-dropoff', [BookingController::class, 'pickupDropOff']);
-    
-    Route::get('/booking/{id}', [BookingController::class, 'get']);
-    Route::post('/booking/accept', [BookingController::class, 'accept']);
-    Route::post('/booking/pickup', [BookingController::class, 'pickup']);
 
-    Route::get('/booking', [BookingController::class, 'index']);
-    Route::post('/booking', [BookingController::class, 'store']);
+    Route::controller(BookingController::class)->group(function() {
+        Route::get('/booking/pickup-dropoff', 'getPickupDropOff');
+        Route::post('/booking/pickup-dropoff', 'pickupDropOff');
+        Route::get('/booking/{id}', 'get');
+        Route::post('/booking/accept', 'accept');
+        Route::post('/booking/pickup', 'pickup');
+        Route::get('/booking', 'index');
+        Route::post('/booking', 'store');
+    });
+
+    Route::controller(VehicleController::class)->group(function() {
+        Route::get('/vehicle//', 'index');
+        Route::get('/vehicle/{id}', 'get');
+        Route::get('/vehicle/get-user/{id}', 'getUserVehicle');
+        Route::post('/vehicle/register', 'register');
+    });
 });
 
 
